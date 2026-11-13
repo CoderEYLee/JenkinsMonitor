@@ -50,6 +50,7 @@ struct MenuBarStatusView: View {
         } else {
             ForEach(group.jobs) { item in
                 Button {
+                    viewModel.searchText = ""
                     viewModel.selectJob(item)
                     openMainWindow()
                 } label: {
@@ -401,6 +402,25 @@ final class MenuBarSideTextItemView: NSView {
             } else {
                 trailingLabel.textColor = content.trailingColor ?? .controlTextColor
             }
+        }
+    }
+
+    override func hitTest(_ point: NSPoint) -> NSView? {
+        bounds.contains(point) ? self : nil
+    }
+
+    override func acceptsFirstMouse(for event: NSEvent?) -> Bool {
+        true
+    }
+
+    override func mouseUp(with event: NSEvent) {
+        super.mouseUp(with: event)
+        guard let item = enclosingMenuItem, item.isEnabled, let menu = item.menu else { return }
+        let index = menu.index(of: item)
+        guard index >= 0 else { return }
+        menu.cancelTracking()
+        DispatchQueue.main.async {
+            menu.performActionForItem(at: index)
         }
     }
 }
