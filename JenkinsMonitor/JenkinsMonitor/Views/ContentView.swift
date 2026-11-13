@@ -2,7 +2,6 @@ import SwiftUI
 
 struct ContentView: View {
     @Bindable var viewModel: MonitoringViewModel
-    @State private var showSettings = false
 
     var body: some View {
         Group {
@@ -11,9 +10,6 @@ struct ContentView: View {
             } else {
                 OnboardingView(viewModel: viewModel)
             }
-        }
-        .sheet(isPresented: $showSettings) {
-            SettingsView(viewModel: viewModel)
         }
         .onAppear {
             viewModel.bootstrap()
@@ -51,12 +47,9 @@ struct ContentView: View {
                 .help("刷新全部实例")
             }
             ToolbarItem(placement: .primaryAction) {
-                Button {
-                    showSettings = true
-                } label: {
+                SettingsLink {
                     Label("设置", systemImage: "gearshape")
                 }
-                .keyboardShortcut(",", modifiers: [.command])
                 .help("设置")
             }
         }

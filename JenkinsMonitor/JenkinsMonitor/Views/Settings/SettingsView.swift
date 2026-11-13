@@ -108,6 +108,10 @@ struct SettingsView: View {
                             .foregroundStyle(.red)
                     }
                 }
+
+                Section("关于") {
+                    LabeledContent("版本", value: appVersionText)
+                }
             }
             .formStyle(.grouped)
             .toolbar(.hidden)
@@ -459,6 +463,15 @@ struct SettingsView: View {
             return .red
         }
         return .secondary
+    }
+
+    private var appVersionText: String {
+        let short = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "—"
+        let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String
+        if let build, !build.isEmpty, build != short {
+            return "\(short)（\(build)）"
+        }
+        return short
     }
 
     private var intervalRangePrompt: String {
