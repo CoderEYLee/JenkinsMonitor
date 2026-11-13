@@ -73,31 +73,32 @@ struct JobDetailView: View {
     @ViewBuilder
     private func header(for job: JenkinsJob) -> some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text(job.fullName)
-                .font(.headline)
-                .lineLimit(2)
-            HStack(spacing: 8) {
-                Button {
-                    showBuildConfirm = true
-                } label: {
-                    if viewModel.isTriggeringBuild {
-                        ProgressView()
-                            .controlSize(.small)
-                        Text("Build")
-                    } else {
-                        Label("Build", systemImage: "play.fill")
-                    }
-                }
-                .buttonStyle(.borderedProminent)
-                .disabled(viewModel.isTriggeringBuild)
-                .lineLimit(1)
-
+            HStack(alignment: .center, spacing: 8) {
+                Text(job.fullName)
+                    .font(.headline)
+                    .lineLimit(2)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 Link(destination: viewModel.browserURL(for: job.url)) {
                     Label("项目详情", systemImage: "safari")
                         .lineLimit(1)
                 }
                 .buttonStyle(.bordered)
+                .fixedSize()
             }
+            Button {
+                showBuildConfirm = true
+            } label: {
+                if viewModel.isTriggeringBuild {
+                    ProgressView()
+                        .controlSize(.small)
+                    Text("Build")
+                } else {
+                    Label("Build", systemImage: "play.fill")
+                }
+            }
+            .buttonStyle(.borderedProminent)
+            .disabled(viewModel.isTriggeringBuild)
+            .lineLimit(1)
             .confirmationDialog("确认开始构建？", isPresented: $showBuildConfirm, titleVisibility: .visible) {
                 Button("Build") {
                     Task {

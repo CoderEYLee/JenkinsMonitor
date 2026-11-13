@@ -8,15 +8,9 @@ struct BuildDetailView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack(alignment: .firstTextBaseline) {
-                VStack(alignment: .leading, spacing: 6) {
-                    Text(job.fullName)
-                        .font(.title2.weight(.semibold))
-                        .lineLimit(2)
-                    Text(build.displayName ?? "#\(build.number)")
-                        .font(.title3)
-                        .foregroundStyle(.secondary)
-                        .lineLimit(1)
-                }
+                Text(build.displayName ?? "#\(build.number)")
+                    .font(.title2.weight(.semibold))
+                    .lineLimit(1)
                 Spacer(minLength: 8)
                 StatusBadge(result: build.result)
             }
