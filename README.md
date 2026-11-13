@@ -22,6 +22,16 @@
 
 首次启动会进入「添加实例」引导页。可点击 **先用样例数据体验界面**，应用会使用内置 Mock 数据展示任务列表、构建详情与菜单栏状态，无需网络。
 
+## 导出 DMG
+
+在仓库根目录执行：
+
+```bash
+./export_dmg.sh
+```
+
+脚本会用当前代码做一次 Release 归档，并在桌面生成 `JenkinsMonitor.dmg`（已有同名文件会被覆盖），里面是 `Jenkins Monitor.app`。拷到其他 Mac 上若被系统拦截，可在「系统设置 → 隐私与安全性」中允许打开。
+
 ## 创建 Jenkins API Token
 
 1. 登录 Jenkins，点击右上角用户名 → **设置**（Configure）。
