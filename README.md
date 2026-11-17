@@ -32,24 +32,22 @@
 
 脚本会用当前代码做一次 Release 归档，并在桌面生成 `JenkinsMonitor.dmg`（已有同名文件会被覆盖）。双击打开后，把 `Jenkins Monitor` 拖到 Applications 文件夹即可安装。拷到其他 Mac 上若被系统拦截，可在「系统设置 → 隐私与安全性」中允许打开。第一次运行脚本时，系统可能会询问是否允许终端控制 Finder，需要允许后才能写好安装窗口的布局。
 
-## 创建 Jenkins API Token
+## 添加 Jenkins 实例
 
-1. 登录 Jenkins，点击右上角用户名 → **设置**（Configure）。
-2. 找到 **API Token** 区域，点击 **Add new Token**。
-3. 为 Token 命名（例如 `Jenkins Monitor`），生成后**立刻复制**（离开页面后无法再查看完整 Token）。
-4. 在本应用中填写：
-   - **实例地址**：Jenkins 根地址，例如 `https://jenkins.example.com`（不要漏协议）
-   - **用户名**：你的 Jenkins 用户名
-   - **API Token**：上一步复制的令牌
+首次启动会进入「添加实例」引导页，之后也可以在设置里继续添加。填写：
 
-> API Token 仅保存在 macOS **钥匙串（Keychain）** 中，不会以明文写入 UserDefaults 或本地文件。
+- **实例地址**：Jenkins 根地址，例如 `https://jenkins.example.com` 或 `http://macminidabaoji.local:8080/`（不要漏协议）
+- **用户名**：你的 Jenkins 用户名
+- **密码**：该用户对应的密码
+
+> 密码仅保存在 macOS **钥匙串（Keychain）** 中，不会以明文写入 UserDefaults 或本地文件。
 
 ## 功能概览（v1）
 
 | 能力 | 说明 |
 | --- | --- |
 | 实例配置 | 引导页 / 设置中添加实例；支持多台实例切换 |
-| 安全存储 | 用户名与地址存 UserDefaults，API Token 存 Keychain |
+| 安全存储 | 用户名与地址存 UserDefaults，密码存 Keychain |
 | Jenkins API | 标准 Remote Access API；Basic Auth；缓存 CSRF Crumb 供后续写操作 |
 | 任务监控 | 侧边栏任务列表（含文件夹展开）、状态徽章、最近构建时间 |
 | 构建详情 | 状态 / 时间 / 耗时，一键在浏览器打开构建或任务页 |
